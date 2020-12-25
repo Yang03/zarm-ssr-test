@@ -1,10 +1,15 @@
 const path = require('path')
+const px2rem = require('postcss-plugin-px2rem');
 // const merge = require('webpack-merge')
 // const baseConfig = require('./webpack.base')
 
 // const xx = () => {
 //   return
 // }
+
+const px2remOpts = {
+  rootValue: 100
+};
 
 const config = {
   mode: 'development',
@@ -32,11 +37,12 @@ const config = {
                 use: [
                     {loader: "style-loader"},
                     {loader: "css-loader"},
-                    {loader: "sass-loader"},
+                   
 
                     {
                         loader: 'postcss-loader',
                         options: {
+                            // parser: 'postcss-strip-inline-comments',
                             plugins: [
                                 require('postcss-flexbugs-fixes'),
                                 require('postcss-preset-env')({
@@ -45,9 +51,11 @@ const config = {
                                     },
                                     stage: 3,
                                 }),
+                                px2rem(px2remOpts)
                             ],
                         },
                     },
+                    {loader: "sass-loader"},
                 ]
 
 

@@ -2,7 +2,7 @@ import ButtonPage from './pages/button.jsx';
 import CalendarPage from './pages/calendar.jsx';
 import DatePickerPage from './pages/datePicker.jsx';
 import FormPage from './pages/form.jsx';
-// import BackTopPag from './pages/backTop.jsx';
+import BackTopPage from './pages/backTop.jsx';
 import PickerPage from './pages/picker.jsx';
 import PullPage from './pages/pull.jsx';
 
@@ -34,11 +34,11 @@ export default [
         path: '/form',
         exact: true
       },
-      // {
-      //   component: BackTopPage,
-      //   path: 'backTop',
-      //   exact: true
-      // },
+      {
+        component: BackTopPage,
+        path: '/backTop',
+        exact: true
+      },
       {
         component: PickerPage,
         path: '/picker',
