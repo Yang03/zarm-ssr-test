@@ -8,7 +8,7 @@ const px2rem = require('postcss-plugin-px2rem');
 // }
 
 const px2remOpts = {
-  rootValue: 100
+  rootValue: 37.5
 };
 
 const config = {

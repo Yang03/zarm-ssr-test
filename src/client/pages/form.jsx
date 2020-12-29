@@ -1,49 +1,38 @@
-import React, { useState } from 'react';
-import {  Input, Cell } from 'zarm';
+import React, { useState, useEffect } from 'react';
+import {  Input, Cell, Button, Message, Icon } from 'zarm';
+import { useForm } from "react-hook-form";
+
 
 function FormPage() {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [value, setValue] = useState('');
+
+  const [value, setValue] = useState();
+  const { register, handleSubmit, watch, errors } = useForm();
+  const onSubmit = data => console.log(data);
+
+  const handleChange = (name, value) => {
+    setValue(name, value );
+  }
+
+  useEffect(() => {
+    register('name', { required: true })
+  }, [value])
   return (
     <>
-      <Cell title="单行文本">
-        <Input
-          clearable
-          type="text"
-          placeholder="请输入"
-          value={title}
-          onChange={(value) => {
-            setTitle(value);
-            console.log(`onChange: ${value}`);
-          }}
-          onBlur={(value) => console.log(`onBlur: ${value}`)}
-        />
-      </Cell>
-      <Cell title="多行文本">
-        <Input
-          type="text"
-          rows={3}
-          placeholder="请输入"
-          type="text"
-          placeholder="请输入"
-          value={content}
-          onChange={setContent}
-        />
-      </Cell>
-      <Cell title="金额">
-        <Input type="price" placeholder="type is price" defaultValue={value} />
-      </Cell>
-      <Cell title="多行文本">
-        <Input
-          autoHeight
-          type="text"
-          rows={3}
-          placeholder="请输入"
-          value={value}
-          onChange={setValue}
-        />
-    </Cell>
+      <div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Cell title="投保人姓名" help={errors.name ? <Message theme="danger" icon={<Icon type="warning-round" size="sm" />}>{errors.name.message || '必填'}</Message> : ''}>
+            <Input name="name" onChange={(value) => handleChange('name', value)} placeholder="投保人姓名" />
+          </Cell>
+          {/* <Cell title="身份证号码" help={errors.applicantCertiNo ? <Message theme="danger" icon={<Icon type="warning-round" size="sm" />}>{errors.applicantCertiNo.message || '必填'}</Message> : ''}>
+            <Input name="applicantCertiNo" onChange={(value) => handleChange('applicantCertiNo', value)} placeholder="身份证号码"/>
+          </Cell>
+          <Cell title="手机号"  help={errors.applicantPhone ? <Message theme="danger" icon={<Icon type="warning-round" size="sm" />}>{errors.applicantPhone.message || '必填'}</Message> : ''} description={<Button size="sm" onClick={(value) => trigger('applicantPhone')} >发送验证码</Button>}>
+            <Input name="applicantPhone" onChange={(value) => handleChange('applicantPhone', value)} placeholder="身份证号码"/>
+          </Cell> */}
+          <Button htmlType="submit" block>提交</Button>
+        </form>
+      </div>
+      
     </>
   )
 }
